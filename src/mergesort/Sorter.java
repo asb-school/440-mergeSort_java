@@ -23,6 +23,8 @@ public class Sorter implements Runnable
 	private int beginingPosition;
 	private int endingPosition;
 
+	private int indexLocation;
+
 
 	// --------------------------------------------------------------
 	// CONSTRUCTOR
@@ -36,9 +38,10 @@ public class Sorter implements Runnable
 	    	this.numberOfItems = givenNumberOfItems;
 	    	this.numberOfThreads = givenNumberOfThreads;
 	    	this.threadId = givenThreadId;
+	    	this.indexLocation = 0;
 
 	    	// Initialize 
-	    	workingItemCollection = new ArrayList<Integer>();
+	    	this.workingItemCollection = new ArrayList<Integer>();
 	}
 
 
@@ -62,9 +65,19 @@ public class Sorter implements Runnable
 	// --------------------------------------------------------------
 	// GET SORTED ITEMS
 
-	public ArrayList getSortedItems()
+	public Integer getItem()
 	{
-		return this.workingItemCollection;
+		// Get an item at the given index location
+		return this.workingItemCollection.get(this.indexLocation);
+	}
+
+
+	// --------------------------------------------------------------
+	// SET INDEX LOCATION
+
+	public void incrementIndex()
+	{
+		this.indexLocation++;
 	}
 
 

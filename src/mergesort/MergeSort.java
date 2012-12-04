@@ -81,6 +81,37 @@ public class MergeSort
 
                 // Merge items back together
 
+                boolean notSorted == true;
+
+                int currentValue = 0;
+                ArrayList<Integer> sortedItemList = new ArrayList<Integer>();
+
+                while (notSorted)
+                {
+                        for (Sorter currentSorter : sorterList)
+                        {
+                                if (currentValue < currentSorter.getItem())
+                                {
+                                        //add to sorted array
+                                        sortedItemList.add(currentSorter.getItem())
+
+                                        // increment sorter index
+                                        currentSorter.incrementIndex();
+                                }
+                                else
+                                {
+                                        // save value to current value
+                                        currentValue = currentSorter.getItem();
+
+                                }
+                        }
+
+                        if (something)
+                        {
+                                notSorted == false;
+                        }
+                }
+
                 /*
 
                 
