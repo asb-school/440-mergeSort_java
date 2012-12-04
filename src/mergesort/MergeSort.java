@@ -83,17 +83,22 @@ public class MergeSort
 
                 boolean notSorted == true;
 
-                int currentValue = 0;
+                int currentValue = -1;
+                int foreignValue = 0;
                 ArrayList<Integer> sortedItemList = new ArrayList<Integer>();
 
                 while (notSorted)
                 {
                         for (Sorter currentSorter : sorterList)
                         {
-                                if (currentValue < currentSorter.getItem())
+                                foreignValue = currentSorter.getItem();
+
+                                if (currentValue < foreignValue)
                                 {
                                         //add to sorted array
-                                        sortedItemList.add(currentSorter.getItem())
+                                        sortedItemList.add(foreignValue)
+
+                                        //currentValue = foreignValue;
 
                                         // increment sorter index
                                         currentSorter.incrementIndex();
@@ -101,7 +106,7 @@ public class MergeSort
                                 else
                                 {
                                         // save value to current value
-                                        currentValue = currentSorter.getItem();
+                                        currentValue = foreignValue;
 
                                 }
                         }
