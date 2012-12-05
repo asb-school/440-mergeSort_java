@@ -9,6 +9,7 @@
 package mergesort;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Vector;
 
 public class Sorter implements Runnable
@@ -65,11 +66,18 @@ public class Sorter implements Runnable
 	// --------------------------------------------------------------
 	// GET SORTED ITEMS
 
-	public Integer getItem()
+	public int getItem()
 	{
 		// Get an item at the given index location
-		return this.workingItemCollection.get(this.indexLocation);
-		// validation! out of bounds exception
+		try
+		{
+			return this.workingItemCollection.get(this.indexLocation);
+		}
+		catch (Exception e) 
+		{
+			return -1;
+		}
+		
 	}
 
 

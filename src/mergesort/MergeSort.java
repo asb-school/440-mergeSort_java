@@ -38,8 +38,15 @@ public class MergeSort
                 // Variables
                 int collectionSize = 0;
                 int numberOfThreads = 0;
+                int lowestNumber = 0;
+                int completed = 0;
+                boolean notSorted = true;
+                int numberOfSorters = 0;
                 
+                ArrayList<Integer> sortedItemList = new ArrayList<Integer>();
                 ArrayList<Sorter> sorterList = new ArrayList<Sorter>();
+
+
 
                 // Get command line parameters
                 if (args.length == 2)
@@ -50,17 +57,25 @@ public class MergeSort
                 // Bad parameters
                 else
                 {
-                        System.err.println("You really dun goofd");
+                        System.err.println("USAGE: arg1: collection size, arg2: number of threads");
                         System.exit(0);
                 }
                 
                 // Generate random numbers in the master item collection
                 generateIntegers(collectionSize);
+                
+                // Debug
+                System.out.println("Unsorted list:");
+                
+                for (Integer currentItem : masterItemCollection)
+                {
+                    System.out.println(currentItem);
+                }
 
                 // Executor service
                 ExecutorService threadScheduler = Executors.newFixedThreadPool(numberOfThreads);
 
-                for (int iteratorIndex = 1; iteratorIndex <= numberOfThreads; iteratorIndex++)
+                for (int iteratorIndex = 0; iteratorIndex < numberOfThreads; iteratorIndex++)
                 {
                         // Create new sorter
                         Sorter mergeSorter = new Sorter(masterItemCollection, collectionSize, numberOfThreads, iteratorIndex);
@@ -75,50 +90,48 @@ public class MergeSort
                 // Tell the threadScheduler that there are no more things to process and it should shutdown
                 // and stop expecting new tasks to process
                 threadScheduler.shutdown();
-
+                   
                 // Hold/pause main method (this one) execution until the threadScheduler is completed
                 while (!threadScheduler.isTerminated()) {}
 
-                // Merge items back together
+                // Get amount of sorted lists
+                numberOfSorters = sorterList.size();
 
-                boolean notSorted == true;
-
-                int currentValue = 0;
-                int completed = 0;
-                int listSize = sorterList.count();
-
-                ArrayList<Integer> sortedItemList = new ArrayList<Integer>();
-
+                // Merge individual items into a giant sorted list
                 while (notSorted)
                 {
-                        for (Sorter currentSorter : sorterList)
+                        // Reset lowest number
+                        lowestNumber = 9999;
+
+                        // For each list
+                        for (int sorterId = 0; sorterId < numberOfSorters; sorterId++)
                         {
-                                completed = 0;
-
-                                if (currentValue == currentSorter.getItem())
+                                // Is item from list a lower number than the current lowest number
+                                if (currentSorter.getItem() < lowestNumber)
                                 {
-                                        while (currentValue == currentSorter.getItem())
-                                        {
-                                                // Get a fresh item and add it to the sorted list
-                                                sortedItemList.add(currentSorter.getItem());
-
-                                                // Increment sorter index
-                                                currentSorter.incrementIndex();
-                                        }
-                                }
-                                else
-                                {
-                                        completed++;
-
-                                        if (completed == listSize)
-                                        {
-                                                notSorted = false;
-                                        }
-                                }
+                                        // Set the new value as lowest number
+                                        lowestNumber = currentSorter.getItem();
+                                }                                
                         }
 
-                        // Increment current value
-                        currentValue++;
+                        // Save lowest number
+                        if (lowestNumber != 9999)
+                        {
+                                // Get the 
+                                sortedItemList.add(lowestNumber);
+                        }
+                        else
+                        {
+                                        // Increment sorter index
+                                        currentSorter.incrementIndex();
+
+                }
+
+                // Debug
+                System.out.println("Sorted list:");
+                for (Integer currentItem : sortedItemList)
+                {
+                        System.out.println(currentItem);
                 }
         }
 }
