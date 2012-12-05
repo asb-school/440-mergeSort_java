@@ -85,36 +85,41 @@ public class MergeSort
 
                 int currentValue = -1;
                 int foreignValue = 0;
+                int completed = 0;
+                int listSize = sorterList.count();
+
                 ArrayList<Integer> sortedItemList = new ArrayList<Integer>();
 
                 while (notSorted)
                 {
                         for (Sorter currentSorter : sorterList)
                         {
-                                foreignValue = currentSorter.getItem();
-
-                                if (currentValue < foreignValue)
+                                completed = 0;
+                                
+                                if (currentValue == currentSorter.getItem())
                                 {
-                                        //add to sorted array
-                                        sortedItemList.add(foreignValue)
+                                        while (currentValue == currentSorter.getItem())
+                                        {
+                                                // Get a fresh item and add it to the sorted list
+                                                sortedItemList.add(currentSorter.getItem());
 
-                                        //currentValue = foreignValue;
-
-                                        // increment sorter index
-                                        currentSorter.incrementIndex();
+                                                // Increment sorter index
+                                                currentSorter.incrementIndex();
+                                        }
                                 }
                                 else
                                 {
-                                        // save value to current value
-                                        currentValue = foreignValue;
+                                        completed++;
 
+                                        if (completed == listSize)
+                                        {
+                                                notSorted = false;
+                                        }
                                 }
                         }
 
-                        if (something)
-                        {
-                                notSorted == false;
-                        }
+                        // Increment current value
+                        currentValue++;
                 }
 
                 /*
