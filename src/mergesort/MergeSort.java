@@ -83,8 +83,7 @@ public class MergeSort
 
                 boolean notSorted == true;
 
-                int currentValue = -1;
-                int foreignValue = 0;
+                int currentValue = 0;
                 int completed = 0;
                 int listSize = sorterList.count();
 
@@ -95,7 +94,7 @@ public class MergeSort
                         for (Sorter currentSorter : sorterList)
                         {
                                 completed = 0;
-                                
+
                                 if (currentValue == currentSorter.getItem())
                                 {
                                         while (currentValue == currentSorter.getItem())
@@ -121,11 +120,5 @@ public class MergeSort
                         // Increment current value
                         currentValue++;
                 }
-
-                /*
-
-                
-
-                */
         }
 }

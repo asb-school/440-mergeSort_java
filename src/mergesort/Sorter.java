@@ -69,6 +69,7 @@ public class Sorter implements Runnable
 	{
 		// Get an item at the given index location
 		return this.workingItemCollection.get(this.indexLocation);
+		// validation! out of bounds exception
 	}
 
 
