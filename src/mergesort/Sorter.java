@@ -45,15 +45,16 @@ public class Sorter implements Runnable
 	    	this.workingItemCollection = new ArrayList<Integer>();
 	}
 
-
 	// --------------------------------------------------------------
 	// CALCULATE POSITIONS
 
 	private void calculatePositions()
 	{
+		// Beginning position
 		this.beginingPosition = (this.numberOfItems / this.numberOfThreads) * this.threadId;
 
-		this.endingPosition = this.beginingPosition + (this.numberOfItems / this.numberOfThreads);
+		// Ending position
+		this.endingPosition = this.beginingPosition + (this.numberOfItems / this.numberOfThreads) - 1;
 
 		// The last thread gets the slack
 		if ((this.threadId == this.numberOfThreads - 1) && (this.endingPosition < this.numberOfItems -1))
@@ -75,7 +76,7 @@ public class Sorter implements Runnable
 		}
 		catch (Exception e) 
 		{
-			return -1;
+			return 9999;
 		}
 		
 	}

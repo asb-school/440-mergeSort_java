@@ -39,9 +39,7 @@ public class MergeSort
                 int collectionSize = 0;
                 int numberOfThreads = 0;
                 int lowestNumber = 0;
-                int completed = 0;
                 boolean notSorted = true;
-                int numberOfSorters = 0;
                 
                 ArrayList<Integer> sortedItemList = new ArrayList<Integer>();
                 ArrayList<Sorter> sorterList = new ArrayList<Sorter>();
@@ -94,9 +92,9 @@ public class MergeSort
                 // Hold/pause main method (this one) execution until the threadScheduler is completed
                 while (!threadScheduler.isTerminated()) {}
 
-                // Get amount of sorted lists
-                numberOfSorters = sorterList.size();
-
+                int savedListIndex = 0;
+                Sorter listToIncrement = null;
+        
                 // Merge individual items into a giant sorted list
                 while (notSorted)
                 {
@@ -104,26 +102,33 @@ public class MergeSort
                         lowestNumber = 9999;
 
                         // For each list
-                        for (int sorterId = 0; sorterId < numberOfSorters; sorterId++)
+                        for (Sorter currentSorter : sorterList)
                         {
                                 // Is item from list a lower number than the current lowest number
                                 if (currentSorter.getItem() < lowestNumber)
                                 {
                                         // Set the new value as lowest number
                                         lowestNumber = currentSorter.getItem();
+
+                                        // Save reference to list that we need to add number to
+                                        savedListIndex = sorterList.indexOf(currentSorter);
                                 }                                
                         }
 
                         // Save lowest number
                         if (lowestNumber != 9999)
                         {
-                                // Get the 
+                                // Add lowest number to sorted item list 
                                 sortedItemList.add(lowestNumber);
+
+                                // Get list to increment, then increment index
+                                listToIncrement = sorterList.get(savedListIndex);
+                                listToIncrement.incrementIndex();
                         }
                         else
                         {
-                                        // Increment sorter index
-                                        currentSorter.incrementIndex();
+                                notSorted = false;
+                        }
 
                 }
 
